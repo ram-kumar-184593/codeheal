@@ -24,37 +24,6 @@ import { motion } from "framer-motion";
 
 // ===============================
 // Floating particles component
-// ===============================
-
-// const Particles = () => {
-//   const particles = Array.from({ length: 40 });
-
-//   return (
-//     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-//       {particles.map((_, i) => (
-//         <motion.div
-//           key={i}
-//           className="absolute w-1 h-1 bg-indigo-400/30 rounded-full"
-//           initial={{
-//             x: Math.random() * window.innerWidth,
-//             y: Math.random() * window.innerHeight,
-//             opacity: 0,
-//           }}
-//           animate={{
-//             y: [null, -100],
-//             opacity: [0, 1, 0],
-//           }}
-//           transition={{
-//             duration: 8 + Math.random() * 10,
-//             repeat: Infinity,
-//             delay: Math.random() * 5,
-//           }}
-//         />
-//       ))}
-//     </div>
-//   );
-// };
-
 const Particles = () => {
   const particles = React.useMemo(
     () =>
@@ -313,7 +282,7 @@ export default function Landing() {
               asChild
               className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90"
             >
-              <Link to="/login">Get Started</Link>
+              <Link to="/app">Get Started</Link>
             </Button>
           </div>
         </div>

@@ -19,7 +19,6 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<AppLoader />}>
       <Routes>
-
         {/* PUBLIC ROUTES */}
         <Route element={<PublicLayout />}>
           <Route index element={<Landing />} />
@@ -27,7 +26,7 @@ const AppRoutes = () => {
           <Route path="docs" element={<Docs />} />
         </Route>
 
-        {/* PROTECTED ROUTES */}
+        {/* PROTECTED ROUTES
         <Route element={<ProtectedRoute />}>
           <Route path="app" element={<AppLayout />}>
             <Route index element={<Navigate to="analyze" replace />} />
@@ -36,10 +35,16 @@ const AppRoutes = () => {
             <Route path="optimize" element={<Optimize />} />
             <Route path="convert" element={<Convert />} />
           </Route>
+        </Route> */}
+        <Route path="app" element={<AppLayout />}>
+          <Route index element={<Navigate to="analyze" replace />} />
+          <Route path="analyze" element={<Analyze />} />
+          <Route path="explain" element={<Explain />} />
+          <Route path="optimize" element={<Optimize />} />
+          <Route path="convert" element={<Convert />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
-
       </Routes>
     </Suspense>
   );

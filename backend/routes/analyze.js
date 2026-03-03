@@ -4,7 +4,8 @@ const analyzeController = require("../controllers/analyzeController");
 const authMiddleware = require("../middleware/authMiddleware");
 
 // POST /api/analyze
-router.post("/", authMiddleware, analyzeController.handleAnalysis);
+// router.post("/", analyzeController.handleAnalysis);
+router.post("/", analyzeController.handleAnalysis);
 
 const Analysis = require("../models/Analysis");
 

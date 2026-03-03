@@ -278,41 +278,95 @@ Return EXACTLY this structure:
     // -----------------------------------------
     // SAVE TO DATABASE
     // -----------------------------------------
-    if (req.user) {
-      try {
-        const analysis = new Analysis({
-          user: req.user.id,
+    // if (req.user) {
+    //   try {
+    //     const analysis = new Analysis({
+    //       user: req.user.id,
 
-          inputText,
+    //       inputText,
 
-          detectedLanguage:
-            parsed.language || parsed.sourceLanguage || "unknown",
+    //       detectedLanguage:
+    //         parsed.language || parsed.sourceLanguage || "unknown",
 
-          correctedCode:
-            parsed.correctedCode ||
-            parsed.correctedSourceCode ||
-            parsed.convertedCode ||
-            parsed.optimizedCode ||
-            "",
+    //       correctedCode:
+    //         parsed.correctedCode ||
+    //         parsed.correctedSourceCode ||
+    //         parsed.convertedCode ||
+    //         parsed.optimizedCode ||
+    //         "",
 
-          shortExplanation:
-            parsed.whatWentWrong ||
-            parsed.issueDetected ||
-            parsed.explanation ||
-            parsed.improvements ||
-            "",
+    //       shortExplanation:
+    //         parsed.whatWentWrong ||
+    //         parsed.issueDetected ||
+    //         parsed.explanation ||
+    //         parsed.improvements ||
+    //         "",
 
-          mode: mode,
+    //       mode: mode,
 
-          result: parsed,
-        });
+    //       result: parsed,
+    //     });
 
-        await analysis.save();
-      } catch (dbErr) {
-        console.error("Mongo save error:", dbErr);
-      }
-    }
+    //     await analysis.save();
+    //   } catch (dbErr) {
+    //     console.error("Mongo save error:", dbErr);
+    //   }
+    // }
 
+
+    // -----------------------------------------
+// OPTIONAL SAVE (Guest Mode Support)
+// -----------------------------------------
+const jwt = require("jsonwebtoken");
+
+let userId = null;
+
+const authHeader = req.headers.authorization;
+
+if (authHeader) {
+  try {
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    userId = decoded.id;
+  } catch (err) {
+    userId = null; // invalid token = guest
+  }
+}
+
+if (userId) {
+  try {
+    const analysis = new Analysis({
+      user: userId,
+
+      inputText,
+
+      detectedLanguage:
+        parsed.language || parsed.sourceLanguage || "unknown",
+
+      correctedCode:
+        parsed.correctedCode ||
+        parsed.correctedSourceCode ||
+        parsed.convertedCode ||
+        parsed.optimizedCode ||
+        "",
+
+      shortExplanation:
+        parsed.whatWentWrong ||
+        parsed.issueDetected ||
+        parsed.explanation ||
+        parsed.improvements ||
+        "",
+
+      mode: mode,
+
+      result: parsed,
+    });
+
+    await analysis.save();
+  } catch (dbErr) {
+    console.error("Mongo save error:", dbErr);
+  }
+}
     // -----------------------------------------
     // RETURN RESULT
     // -----------------------------------------
