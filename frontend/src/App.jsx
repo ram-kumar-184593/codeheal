@@ -12,7 +12,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/codeheal">
+      <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
