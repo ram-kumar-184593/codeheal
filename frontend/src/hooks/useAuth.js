@@ -82,7 +82,7 @@ export function useAuth() {
   const signInWithGoogle = async (credential) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${API}/google`, {
+      const res = await axios.post("/auth/google", {
         credential,
       });
 
