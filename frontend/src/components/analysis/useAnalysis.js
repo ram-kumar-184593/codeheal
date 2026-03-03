@@ -79,7 +79,7 @@ export function useAnalysis() {
     }
 
     try {
-      const response = await axios.get(`${API}/analyze`);
+      const response = await axios.get("/analyze/history");;
 
       if (response.data.success) {
         setHistory(response.data.data || []);
@@ -99,7 +99,7 @@ export function useAnalysis() {
     }
 
     try {
-      await axios.delete(`${API}/analyze/${id}`);
+      await axios.delete(`/analyze/${id}`);
 
       // Remove instantly from UI
       setHistory((prev) => prev.filter((item) => item._id !== id));
