@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "@/lib/axios";
 import { toast } from "@/hooks/useToast";
-
-const API = "http://localhost:5000/api/auth";
 
 export function useAuth() {
   const navigate = useNavigate();
@@ -26,13 +24,13 @@ export function useAuth() {
   const signUp = async (email, password, displayName) => {
     setLoading(true);
     try {
-      await axios.post(`${API}/register`, {
+      await axios.post("/auth/register", {
         name: displayName,
         email,
         password,
       });
 
-      const loginRes = await axios.post(`${API}/login`, {
+      const loginRes = await axios.post("/auth/login", {
         email,
         password,
       });
@@ -58,7 +56,7 @@ export function useAuth() {
   const signIn = async (email, password) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${API}/login`, {
+      const res = await axios.post("/auth/login", {
         email,
         password,
       });

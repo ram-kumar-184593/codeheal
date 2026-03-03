@@ -2,8 +2,6 @@ import { useState, useCallback } from "react";
 import axios from "@/lib/axios";
 import { toast } from "@/hooks/useToast";
 
-const API = "http://localhost:5000/api";
-
 export function useAnalysis() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [currentResult, setCurrentResult] = useState(null);
@@ -34,7 +32,7 @@ export function useAnalysis() {
       setCurrentResult(null);
 
       try {
-        const response = await axios.post(`${API}/analyze`, {
+        const response = await axios.post("/analyze", {
           inputText: code,
           mode: mode,
           targetLanguage: targetLanguage,
@@ -110,29 +108,11 @@ export function useAnalysis() {
     }
   };
 
-  // //SELECT HISTORY ITEM
-
-  // const selectHistoryItem = useCallback((item) => {
-  //   const reconstructedResult = {
-  //     mode: "analyze",
-  //     language: item.detectedLanguage,
-  //     correctedCode: item.correctedCode,
-  //     explanation: item.shortExplanation,
-  //   };
-
-  //   setCurrentResult(reconstructedResult);
-
-  //   if (item.inputText) {
-  //     setRestoredInput(item.inputText);
-  //   }
-  // }, []);
-
-
+  //SELECT HISTORY ITEM
 const selectHistoryItem = useCallback((item) => {
   if (item.result) {
     setCurrentResult(item.result);
   }
-
   if (item.inputText) {
     setDraftCode(item.inputText);
   }
