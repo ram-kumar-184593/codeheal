@@ -79,7 +79,7 @@ export function useAnalysis() {
     }
 
     try {
-      const response = await axios.get("/analyze/history");;
+      const response = await axios.get("/analyze");;
 
       if (response.data.success) {
         setHistory(response.data.data || []);
