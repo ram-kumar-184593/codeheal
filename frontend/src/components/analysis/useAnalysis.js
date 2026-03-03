@@ -14,11 +14,7 @@ export function useAnalysis() {
   ========================= */
   const analyze = useCallback(
     async (code, mode = "analyze", targetLanguage = null) => {
-      console.log("Sending analyze request:", {
-        code,
-        mode,
-        targetLanguage,
-      });
+      
       if (!code.trim()) {
         toast({
           title: "Empty input",
@@ -44,7 +40,6 @@ export function useAnalysis() {
           throw new Error(data.error || "Analysis failed");
         }
 
-        console.log("RESULT FROM BACKEND:", data.result);
         // Show AI result
         setCurrentResult(data.result);
 
